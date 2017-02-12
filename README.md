@@ -2,7 +2,12 @@
 
 Create React apps with no build configuration.
 
-**This is a fork of [Create React App](https://github.com/facebookincubator/create-react-app), intended for use at our company, Code Yellow B.V.**
+* [Getting Started](#getting-started) – How to create a new app.
+* [User Guide](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
+
+- - -
+
+**This is a fork of [Create React App](https://github.com/facebookincubator/create-react-app), intended for use at our company Code Yellow B.V.**
 
 The main differences with Create React App are;
 
@@ -12,17 +17,15 @@ The main differences with Create React App are;
 - No support for `.jsx` files; we force `.js` for consistency.
 - Our own [ESLint rules](https://www.npmjs.com/package/eslint-config-codeyellow).
 
-* [Getting Started](#getting-started) – How to create a new app.
-* [User Guide](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
 
 ## tl;dr
 
 ```sh
-npm install -g create-react-cy-app
+yarn global add create-react-cy-app
 
 create-react-cy-app my-app
 cd my-app/
-npm start
+yarn start
 ```
 
 Then open [http://localhost:3000/](http://localhost:3000/) to see your app.<br>
@@ -37,10 +40,10 @@ When you’re ready to deploy to production, create a minified bundle with `npm 
 Install it once globally:
 
 ```sh
-npm install -g create-react-cy-app
+yarn global add create-react-cy-app
 ```
 
-**You’ll need to have Node >= 4 on your machine**.
+**You’ll need to have Node >= 4 on your machine. [Yarn](https://yarnpkg.com/lang/en/docs/install/) is optional, but recommended if you don't want to wait an eternity**.
 
 **We strongly recommend to use Node >= 6 and npm >= 3 for faster installation speed and better disk usage.** You can use [nvm](https://github.com/creationix/nvm#usage) to easily switch Node versions between different projects.
 
@@ -64,6 +67,7 @@ my-app/
   node_modules/
   package.json
   .gitignore
+  .eslintrc
   public/
     favicon.ico
     index.html
