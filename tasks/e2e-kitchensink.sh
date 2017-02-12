@@ -40,7 +40,7 @@ function handle_exit {
 }
 
 function create_react_app {
-  node "$temp_cli_path"/node_modules/create-react-app/index.js $*
+  node "$temp_cli_path"/node_modules/create-react-cy-app/index.js $*
 }
 
 # Check for the existence of one or more files.
@@ -73,15 +73,15 @@ then
 fi
 
 # ******************************************************************************
-# First, pack react-scripts and create-react-app so we can use them.
+# First, pack react-cy-scripts and create-react-app so we can use them.
 # ******************************************************************************
 
 # Pack CLI
 cd $root_path/packages/create-react-app
 cli_path=$PWD/`npm pack`
 
-# Go to react-scripts
-cd $root_path/packages/react-scripts
+# Go to react-cy-scripts
+cd $root_path/packages/react-cy-scripts
 
 # Save package.json because we're going to touch it
 cp package.json package.json.orig
@@ -90,8 +90,8 @@ cp package.json package.json.orig
 # of those packages.
 node $root_path/tasks/replace-own-deps.js
 
-# Finally, pack react-scripts
-scripts_path=$root_path/packages/react-scripts/`npm pack`
+# Finally, pack react-cy-scripts
+scripts_path=$root_path/packages/react-cy-scripts/`npm pack`
 
 # Restore package.json
 rm package.json
@@ -107,10 +107,10 @@ npm install $cli_path
 
 # Install the app in a temporary location
 cd $temp_app_path
-create_react_app --scripts-version=$scripts_path --internal-testing-template=$root_path/packages/react-scripts/fixtures/kitchensink test-kitchensink
+create_react_app --scripts-version=$scripts_path --internal-testing-template=$root_path/packages/react-cy-scripts/fixtures/kitchensink test-kitchensink
 
 # ******************************************************************************
-# Now that we used create-react-app to create an app depending on react-scripts,
+# Now that we used create-react-app to create an app depending on react-cy-scripts,
 # let's make sure all npm scripts are in the working state.
 # ******************************************************************************
 
@@ -171,8 +171,8 @@ echo yes | npm run eject
 # ...but still link to the local packages
 npm link $root_path/packages/babel-preset-react-app
 npm link $root_path/packages/eslint-config-react-app
-npm link $root_path/packages/react-dev-utils
-npm link $root_path/packages/react-scripts
+npm link $root_path/packages/react-cy-dev-utils
+npm link $root_path/packages/react-cy-scripts
 
 # Test the build
 REACT_APP_SHELL_ENV_MESSAGE=fromtheshell \
