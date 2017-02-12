@@ -22,7 +22,7 @@ prompt(
   false
 ).then(shouldEject => {
   if (!shouldEject) {
-    console.log(cyan('Close one! Eject aborted.'));
+    console.log(cyan('That was close! Eject aborted.'));
     process.exit(1);
   }
 
