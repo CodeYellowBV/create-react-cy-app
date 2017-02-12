@@ -247,7 +247,8 @@ function checkNodeVersion(packageName) {
 
 function checkAppName(appName) {
   // TODO: there should be a single place that holds the dependencies
-  var dependencies = ['react', 'react-dom'];
+  // Currently we have to manually include eslint as a dep because otherwise text editors don't pick it up.
+  var dependencies = ['react', 'react-dom', 'eslint', 'eslint-config-codeyellow', 'mobx'];
   var devDependencies = ['react-cy-scripts'];
   var allDependencies = dependencies.concat(devDependencies).sort();
 
