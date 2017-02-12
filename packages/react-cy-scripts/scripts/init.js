@@ -24,7 +24,7 @@ module.exports = function(appPath, appName, verbose, originalDirectory, template
 
   // Setup the script rules
   appPackage.scripts = {
-    'start': 'react-cy-scripts start',
+    'start': 'CHOKIDAR_USEPOLLING=true react-cy-scripts start',
     'build': 'react-cy-scripts build',
     'test': 'react-cy-scripts test --env=jsdom',
     'eject': 'react-cy-scripts eject'
