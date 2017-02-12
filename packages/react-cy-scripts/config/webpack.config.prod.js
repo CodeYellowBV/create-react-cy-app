@@ -140,7 +140,7 @@ module.exports = {
         // @remove-on-eject-begin
         options: {
           babelrc: false,
-          presets: [require.resolve('babel-preset-react-app')],
+          presets: [require.resolve('babel-preset-react-cy-app')],
         },
         // @remove-on-eject-end
       },

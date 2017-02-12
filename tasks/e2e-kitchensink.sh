@@ -118,7 +118,7 @@ create_react_app --scripts-version=$scripts_path --internal-testing-template=$ro
 cd test-kitchensink
 
 # Link to our preset
-npm link $root_path/packages/babel-preset-react-app
+npm link $root_path/packages/babel-preset-react-cy-app
 
 # Test the build
 REACT_APP_SHELL_ENV_MESSAGE=fromtheshell \
@@ -163,13 +163,13 @@ E2E_FILE=./build/index.html \
 # ******************************************************************************
 
 # Unlink our preset
-npm unlink $root_path/packages/babel-preset-react-app
+npm unlink $root_path/packages/babel-preset-react-cy-app
 
 # Eject...
 echo yes | npm run eject
 
 # ...but still link to the local packages
-npm link $root_path/packages/babel-preset-react-app
+npm link $root_path/packages/babel-preset-react-cy-app
 npm link $root_path/packages/eslint-config-react-app
 npm link $root_path/packages/react-cy-dev-utils
 npm link $root_path/packages/react-cy-scripts
