@@ -21,6 +21,7 @@ const plugins = [
   [require.resolve('babel-plugin-transform-object-rest-spread'), {
     useBuiltIns: true
   }],
+  require.resolve('babel-plugin-syntax-jsx'),
   // Transforms JSX
   [require.resolve('babel-plugin-transform-react-jsx'), {
     useBuiltIns: true
@@ -65,18 +66,13 @@ if (env === 'test') {
         targets: {
           node: 'current',
         },
-      }],
-      // JSX, Flow
-      require.resolve('babel-preset-react')
+      }]
     ],
     plugins: plugins
   };
 } else {
   module.exports = {
-    presets: [
-      // JSX, Flow
-      require.resolve('babel-preset-react')
-    ],
+    presets: [],
     plugins: plugins
   };
 
