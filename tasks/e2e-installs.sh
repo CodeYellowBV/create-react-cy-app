@@ -85,17 +85,6 @@ cd $temp_cli_path
 npm install $cli_path
 
 # ******************************************************************************
-# Test --scripts-version with a custom fork of react-cy-scripts
-# ******************************************************************************
-
-cd $temp_app_path
-create_react_app --scripts-version=react-cy-scripts-fork test-app-fork
-cd test-app-fork
-
-# Check corresponding scripts version is installed.
-exists node_modules/react-cy-scripts-fork
-
-# ******************************************************************************
 # Test nested folder path as the project name
 # ******************************************************************************
 
