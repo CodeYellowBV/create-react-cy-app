@@ -1,7 +1,6 @@
 ---
 language: node_js
 node_js:
-  - 4
   - 6
 cache:
   directories:
@@ -23,3 +22,6 @@ matrix:
   include:
     - node_js: 6
       env: USE_YARN=yes TEST_SUITE=simple
+branches:
+  only:
+    - master
