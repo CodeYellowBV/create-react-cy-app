@@ -77,7 +77,7 @@ fi
 # ******************************************************************************
 
 # Pack CLI
-cd $root_path/packages/create-react-app
+cd $root_path/packages/create-react-cy-app
 cli_path=$PWD/`npm pack`
 
 # Go to react-cy-scripts

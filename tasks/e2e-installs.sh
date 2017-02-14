@@ -85,30 +85,6 @@ cd $temp_cli_path
 npm install $cli_path
 
 # ******************************************************************************
-# Test --scripts-version with a version number
-# ******************************************************************************
-
-cd $temp_app_path
-create_react_app --scripts-version=0.4.0 test-app-version-number
-cd test-app-version-number
-
-# Check corresponding scripts version is installed.
-exists node_modules/react-cy-scripts
-grep '"version": "0.4.0"' node_modules/react-cy-scripts/package.json
-
-# ******************************************************************************
-# Test --scripts-version with a tarball url
-# ******************************************************************************
-
-cd $temp_app_path
-create_react_app --scripts-version=https://registry.npmjs.org/react-cy-scripts/-/react-cy-scripts-0.4.0.tgz test-app-tarball-url
-cd test-app-tarball-url
-
-# Check corresponding scripts version is installed.
-exists node_modules/react-cy-scripts
-grep '"version": "0.4.0"' node_modules/react-cy-scripts/package.json
-
-# ******************************************************************************
 # Test --scripts-version with a custom fork of react-cy-scripts
 # ******************************************************************************
 
