@@ -100,6 +100,8 @@ module.exports = {
   // @remove-on-eject-end
   module: {
     rules: [
+      // Disable require.ensure as it's not a standard language feature.
+      { parser: { requireEnsure: false } },
       // ** ADDING/UPDATING LOADERS **
       // The "url" loader handles all assets unless explicitly excluded.
       // The `exclude` list *must* be updated with every change to loader extensions.

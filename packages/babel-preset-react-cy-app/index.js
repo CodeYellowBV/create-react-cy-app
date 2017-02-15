@@ -26,6 +26,8 @@ const plugins = [
   [require.resolve('babel-plugin-transform-react-jsx'), {
     useBuiltIns: true
   }],
+  // Enables parsing of import()
+  require.resolve('babel-plugin-syntax-dynamic-import')
 ];
 
 // This is similar to how `env` works in Babel:
