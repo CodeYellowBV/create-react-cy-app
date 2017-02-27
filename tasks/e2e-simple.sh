@@ -65,7 +65,12 @@ set -x
 cd ..
 root_path=$PWD
 
+
+# Prevent lerna bootstrap, we only want top-level dependencies
+cp package.json package.json.bak
+grep -v "lerna bootstrap" package.json > temp && mv temp package.json
 npm install
+mv package.json.bak package.json
 
 # If the node version is < 4, the script should just give an error.
 if [[ `node --version | sed -e 's/^v//' -e 's/\..*//g'` -lt 4 ]]
@@ -74,6 +79,11 @@ then
   err_output=`node "$root_path"/packages/create-react-cy-app/index.js test-node-version 2>&1 > /dev/null || echo ''`
   [[ $err_output =~ You\ are\ running\ Node ]] && exit 0 || exit 1
 fi
+
+# Still use npm install instead of directly calling lerna bootstrap to test
+# postinstall script functionality (one npm install should result in a working
+# project)
+npm install
 
 if [ "$USE_YARN" = "yes" ]
 then
