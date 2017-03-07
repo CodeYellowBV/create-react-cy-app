@@ -59,5 +59,5 @@ module.exports = {
   // Enable HTTPS if the HTTPS environment variable is set to 'true'
   https: protocol === 'https',
   host: host,
-  overlay: false,
+  overlay: true,
 };
