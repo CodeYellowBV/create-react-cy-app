@@ -81,7 +81,8 @@ if (env === 'test') {
   if (env === 'production') {
     plugins.push.apply(plugins, [
       // Reduces calls to `React.createElement` by hoisting static components to the top
-      require.resolve('babel-plugin-transform-react-constant-elements')
+      // TODO: temporarily disabled because it caused issues
+      // require.resolve('babel-plugin-transform-react-constant-elements')
     ]);
   }
 }
