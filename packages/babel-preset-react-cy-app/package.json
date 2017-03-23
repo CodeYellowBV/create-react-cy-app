@@ -20,6 +20,6 @@
     "babel-plugin-transform-react-jsx": "6.23.0",
     "babel-plugin-transform-react-jsx-self": "6.22.0",
     "babel-plugin-transform-react-jsx-source": "6.22.0",
-    "babel-preset-env": "1.2.1"
+    "babel-preset-env": "1.2.2"
   }
 }
