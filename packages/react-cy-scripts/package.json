@@ -1,6 +1,6 @@
 {
   "name": "react-cy-scripts",
-  "version": "0.9.9",
+  "version": "0.10.0",
   "description": "Configuration and scripts for Create React App.",
   "repository": "CodeYellowBV/create-react-cy-app",
   "license": "BSD-3-Clause",
@@ -27,7 +27,7 @@
     "babel-eslint": "7.2.1",
     "babel-jest": "19.0.0",
     "babel-loader": "6.4.1",
-    "babel-preset-react-cy-app": "^2.1.6",
+    "babel-preset-react-cy-app": "^2.1.7",
     "babel-runtime": "^6.23.0",
     "babili-webpack-plugin": "0.0.11",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
