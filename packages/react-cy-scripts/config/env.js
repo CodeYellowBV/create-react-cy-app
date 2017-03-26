@@ -9,15 +9,15 @@
  */
 // @remove-on-eject-end
 
-// Grab NODE_ENV and CY_APP_* environment variables and prepare them to be
+// Grab NODE_ENV and CY_FRONTEND_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in Webpack configuration.
 
-var CY_APP = /^CY_APP_/i;
+var CY_FRONTEND = /^CY_FRONTEND_/i;
 
 function getClientEnvironment(publicUrl) {
   var raw = Object
     .keys(process.env)
-    .filter(key => CY_APP.test(key))
+    .filter(key => CY_FRONTEND.test(key))
     .reduce((env, key) => {
       env[key] = process.env[key];
       return env;
