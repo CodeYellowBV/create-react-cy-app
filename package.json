@@ -11,15 +11,15 @@
     "test": "node packages/react-cy-scripts/scripts/test.js --env=jsdom"
   },
   "devDependencies": {
-    "babel-eslint": "7.1.1",
-    "eslint": "3.17.1",
-    "eslint-config-react-app": "0.6.1",
-    "eslint-plugin-flowtype": "2.30.3",
+    "babel-eslint": "7.2.3",
+    "eslint": "3.19.0",
+    "eslint-config-react-app": "0.6.2",
+    "eslint-plugin-flowtype": "2.32.1",
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "4.0.0",
-    "eslint-plugin-react": "6.10.0",
-    "eslint-config-codeyellow": "3.0.2",
-    "lerna": "2.0.0-beta.38",
-    "lerna-changelog": "^0.3.0"
+    "eslint-plugin-react": "6.10.3",
+    "eslint-config-codeyellow": "3.0.3",
+    "lerna": "2.0.0-rc.3",
+    "lerna-changelog": "^0.4.0"
   }
 }
