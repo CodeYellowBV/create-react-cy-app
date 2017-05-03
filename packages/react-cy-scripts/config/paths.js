@@ -12,6 +12,7 @@
 var path = require('path');
 var fs = require('fs');
 var url = require('url');
+var os = require('os');
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637
@@ -112,6 +113,7 @@ module.exports = {
   // These properties only exist before ejecting:
   ownPath: resolveOwn('.'),
   ownNodeModules: resolveOwn('node_modules'), // This is empty on npm 3
+  cachePath: path.join(os.tmpdir(), 'create-react-cy-app-cache'),
 };
 
 var ownPackageJson = require('../package.json');
@@ -137,6 +139,7 @@ if (!reactScriptsLinked && __dirname.indexOf(path.join('packages', 'react-cy-scr
     // These properties only exist before ejecting:
     ownPath: resolveOwn('.'),
     ownNodeModules: resolveOwn('node_modules'),
+    cachePath: path.join(os.tmpdir(), 'create-react-cy-app-cache'),
   };
 }
 // @remove-on-eject-end

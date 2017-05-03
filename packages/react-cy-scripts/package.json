@@ -30,6 +30,7 @@
     "babel-preset-react-cy-app": "^2.1.8",
     "babel-runtime": "^6.23.0",
     "babili-webpack-plugin": "0.0.11",
+    "cache-loader": "1.0.3",
     "case-sensitive-paths-webpack-plugin": "2.0.0",
     "chalk": "1.1.3",
     "connect-history-api-fallback": "1.3.0",

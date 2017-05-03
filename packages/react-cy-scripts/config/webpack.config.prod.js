@@ -129,12 +129,25 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: 'babel-loader',
-        // @remove-on-eject-begin
-        options: {
-          babelrc: false,
-          presets: [require.resolve('babel-preset-react-cy-app')],
-        },
+        use: [
+          {
+            loader: 'cache-loader',
+            options: {
+              // There is a semi-standard now to use node_modules/.cache/<package name>
+              // However, for us it won't make sense to use it since our deploy processs initializes a fresh `node_modules` folder each time
+              // So then it would be useless to use caching.
+              cacheDirectory: paths.cachePath,
+            }
+          },
+          {
+            loader: 'babel-loader',
+            // @remove-on-eject-begin
+            options: {
+              babelrc: false,
+              presets: [require.resolve('babel-preset-react-cy-app')],
+            },
+          }
+        ]
         // @remove-on-eject-end
       },
       // The notation here is somewhat confusing.
