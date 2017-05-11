@@ -10,6 +10,9 @@
 
 var path = require('path');
 
+// Often we don't need to support legacy browsers, but for some projects we do.
+var enableLegacyBrowsers = process.env.LEGACY_BROWSERS === 'true';
+
 const plugins = [
   // class { @observable foo = 'bar' }
   require.resolve('babel-plugin-transform-decorators-legacy'),
@@ -18,16 +21,30 @@ const plugins = [
   // The following two plugins use Object.assign directly, instead of Babel's
   // extends helper. Note that this assumes `Object.assign` is available.
   // { ...todo, completed: true }
-  [require.resolve('babel-plugin-transform-object-rest-spread'), {
-    useBuiltIns: true
-  }],
-  require.resolve('babel-plugin-syntax-jsx'),
+  [
+    require.resolve('babel-plugin-transform-object-rest-spread'),
+    {
+      useBuiltIns: true,
+    },
+  ],
   // Transforms JSX
-  [require.resolve('babel-plugin-transform-react-jsx'), {
-    useBuiltIns: true
-  }],
-  // Enables parsing of import()
-  require.resolve('babel-plugin-syntax-dynamic-import')
+  [
+    require.resolve('babel-plugin-transform-react-jsx'),
+    {
+      useBuiltIns: true,
+    },
+  ],
+  // Polyfills the runtime needed for async/await and generators
+  [
+    require.resolve('babel-plugin-transform-runtime'),
+    {
+      helpers: false,
+      polyfill: false,
+      regenerator: true,
+      // Resolve the Babel runtime relative to the config.
+      moduleName: path.dirname(require.resolve('babel-runtime/package')),
+    },
+  ],
 ];
 
 // This is similar to how `env` works in Babel:
@@ -39,9 +56,11 @@ const plugins = [
 var env = process.env.BABEL_ENV || process.env.NODE_ENV;
 if (env !== 'development' && env !== 'test' && env !== 'production') {
   throw new Error(
-    'Using `babel-preset-react-cy-app` requires that you specify `NODE_ENV` or '+
-    '`BABEL_ENV` environment variables. Valid values are "development", ' +
-    '"test", and "production". Instead, received: ' + JSON.stringify(env) + '.'
+    'Using `babel-preset-react-app` requires that you specify `NODE_ENV` or ' +
+      '`BABEL_ENV` environment variables. Valid values are "development", ' +
+      '"test", and "production". Instead, received: ' +
+      JSON.stringify(env) +
+      '.'
   );
 }
 
@@ -56,7 +75,7 @@ if (env === 'development' || env === 'test') {
     // Adds component stack to warning messages
     require.resolve('babel-plugin-transform-react-jsx-source'),
     // Adds __self attribute to JSX which React will use for some warnings
-    require.resolve('babel-plugin-transform-react-jsx-self')
+    require.resolve('babel-plugin-transform-react-jsx-self'),
   ]);
 }
 
@@ -64,25 +83,65 @@ if (env === 'test') {
   module.exports = {
     presets: [
       // ES features necessary for user's Node version
-      [require('babel-preset-env').default, {
-        targets: {
-          node: 'current',
+      [
+        require('babel-preset-env').default,
+        {
+          targets: {
+            node: 'current',
+          },
         },
-      }]
+      ],
+      // JSX, Flow
+      require.resolve('babel-preset-react'),
     ],
-    plugins: plugins
+    plugins: plugins.concat([
+      // Compiles import() to a deferred require()
+      require.resolve('babel-plugin-dynamic-import-node'),
+    ]),
   };
 } else {
+  const presets = [
+    // JSX, Flow
+    require.resolve('babel-preset-react'),
+  ];
+  if (enableLegacyBrowsers) {
+    presets.unshift([
+      require.resolve('babel-preset-env'),
+      {
+        // We never have to support IE, but Safari we do
+        targets: { safari: 9 },
+        // Disable polyfill transforms
+        useBuiltIns: false,
+        // Do not transform modules to CJS
+        modules: false,
+      },
+    ]);
+  }
   module.exports = {
-    presets: [],
-    plugins: plugins
+    presets: presets,
+    plugins: plugins.concat([
+      // function* () { yield 42; yield 43; }
+      [
+        require.resolve('babel-plugin-transform-regenerator'),
+        {
+          // Async functions are converted to generators by babel-preset-env
+          async: false,
+        },
+      ],
+      // Adds syntax support for import()
+      require.resolve('babel-plugin-syntax-dynamic-import'),
+    ]),
   };
 
   if (env === 'production') {
-    plugins.push.apply(plugins, [
-      // Reduces calls to `React.createElement` by hoisting static components to the top
-      // TODO: temporarily disabled because it caused issues
-      // require.resolve('babel-plugin-transform-react-constant-elements')
-    ]);
+    // Optimization: hoist JSX that never changes out of render()
+    // Disabled because of issues:
+    // * https://github.com/facebookincubator/create-react-app/issues/525
+    // * https://phabricator.babeljs.io/search/query/pCNlnC2xzwzx/
+    // * https://github.com/babel/babel/issues/4516
+    // TODO: Enable again when these issues are resolved.
+    // plugins.push.apply(plugins, [
+    //   require.resolve('babel-plugin-transform-react-constant-elements')
+    // ]);
   }
 }
