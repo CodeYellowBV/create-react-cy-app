@@ -45,6 +45,7 @@ const plugins = [
       moduleName: path.dirname(require.resolve('babel-runtime/package')),
     },
   ],
+  require.resolve('babel-plugin-styled-components'),
 ];
 
 // This is similar to how `env` works in Babel:
