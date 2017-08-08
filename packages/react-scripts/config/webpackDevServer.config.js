@@ -85,6 +85,8 @@ module.exports = function(proxy, allowedHost) {
       // Paths with dots should still use the history fallback.
       // See https://github.com/facebookincubator/create-react-app/issues/387.
       disableDotRule: true,
+      // By default `/index.html` is served, but if PUBLIC_URL is set we don't want that.
+      index: paths.servedPath + 'index.html',
     },
     public: allowedHost,
     proxy,
