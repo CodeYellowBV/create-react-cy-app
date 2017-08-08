@@ -45,6 +45,7 @@ var DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
 function run(port) {
   var protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
   var host = process.env.HOST || 'localhost';
+  var openUrl = protocol + '://' + host + ':' + port + paths.servedPath; 
 
   // Create a webpack compiler that is configured with custom messages.
   var compiler = createWebpackCompiler(config, function onReady(showInstructions) {
@@ -54,7 +55,7 @@ function run(port) {
     console.log();
     console.log('The app is running at:');
     console.log();
-    console.log('  ' + chalk.cyan(protocol + '://' + host + ':' + port + '/'));
+    console.log('  ' + chalk.cyan(openUrl));
     console.log();
     console.log('Note that the development build is not optimized.');
     console.log('To create a production build, use ' + chalk.cyan(cli + ' run build') + '.');
@@ -79,7 +80,7 @@ function run(port) {
     console.log(chalk.cyan('Starting the development server...'));
     console.log();
 
-    openBrowser(protocol + '://' + host + ':' + port + '/');
+    openBrowser(openUrl);
   });
 }
 

@@ -46,6 +46,8 @@ module.exports = function addWebpackMiddleware(devServer) {
   // Every unrecognized request will be forwarded to it.
   var proxy = require(paths.appPackageJson).proxy;
   devServer.use(historyApiFallback({
+    // By default `/index.html` is served, but if PUBLIC_URL is set we don't want that. 
+    index: paths.servedPath + 'index.html',
     // Paths with dots should still use the history fallback.
     // See https://github.com/facebookincubator/create-react-app/issues/387.
     disableDotRule: true,
