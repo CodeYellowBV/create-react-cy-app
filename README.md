@@ -11,11 +11,21 @@ Create React apps with no build configuration.
 
 The main differences with Create React App are;
 
-- Less wide browser support. We only need to support modern browsers, so we don't want unnecessary polyfills.
-- No CSS Autoprefixer, we only support modern browsers.
-- No ESLint warnings when running `npm start`. It is assumed your text editor has eslint configured already.
-- No support for `.jsx` files; we force `.js` for consistency.
-- Our own [ESLint rules](https://www.npmjs.com/package/eslint-config-codeyellow).
+Changes with create-react-app
+- No eslint-loader in dev, it is assumed your text editor has eslint configured already
+- No CSS Autoprefixer, we only support modern browsers
+- Uses cache-loader to cache Babel output
+- Doesn't use source maps by default
+- Support for `PUBLIC_URL` env variable in dev
+- Allows module resolving from src/ (e.g. `import 'components/foo'` works everywhere)
+- Uses Babili instead of UglifyJs for minifying
+- Basic Electron compatibility via env variable
+- Allows custom dotenv file location (in our build system `.env` cannot live in the repository root)
+- Includes env variables in frontend build with prefix `CY_FRONTEND_*` instead of `REACT_APP_*`
+- Babel preset:
+-- Less transpiling (we don't have to support many browsers), but still possible to enable a little bit more transpiling via an env variable
+-- Uses styled-components babel plugin
+-- Uses decorator babel plugin
 
 
 ## tl;dr
