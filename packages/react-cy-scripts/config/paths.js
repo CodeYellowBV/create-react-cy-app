@@ -40,7 +40,7 @@ var nodePaths = (process.env.NODE_PATH || '')
   .split(process.platform === 'win32' ? ';' : ':')
   .filter(Boolean)
   .filter(folder => !path.isAbsolute(folder))
-  .concat('src/')
+  .concat('src/') // Make sure to also update the jest config when changing this
   .map(resolveApp);
 
 var envPublicUrl = process.env.PUBLIC_URL;
