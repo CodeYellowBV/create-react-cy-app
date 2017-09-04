@@ -4,9 +4,7 @@
     "build": "node packages/react-scripts/scripts/build.js",
     "changelog": "lerna-changelog",
     "create-react-app": "tasks/cra.sh",
-    "e2e": "tasks/e2e-simple.sh",
-    "e2e:docker": "tasks/local-test.sh",
-    "postinstall": "node bootstrap.js && cd packages/react-error-overlay/ && npm run build:prod",
+    "postinstall": "node bootstrap.js",
     "publish": "tasks/release.sh",
     "start": "node packages/react-scripts/scripts/start.js",
     "test": "node packages/react-scripts/scripts/test.js --env=jsdom",
@@ -15,6 +13,7 @@
   },
   "devDependencies": {
     "eslint": "^4.4.1",
+    "create-react-app": "1.4.0",
     "husky": "^0.13.2",
     "lerna": "^2.0.0",
     "lerna-changelog": "^0.6.0",

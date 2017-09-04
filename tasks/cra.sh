@@ -79,8 +79,16 @@ mv package.json.orig package.json
 yarn cache clean || true
 
 # Go back to the root directory and run the command from here
+<<<<<<< HEAD
 cd "$root_path"
 node packages/create-react-app/index.js --scripts-version="$scripts_path" "$@"
+||||||| parent of efbebd6... Update configs for repo itself
+cd $root_path
+node packages/create-react-cy-app/index.js --scripts-version=$scripts_path "$@"
+=======
+cd "$root_path"
+node_modules/.bin/create-react-app --scripts-version="$scripts_path" "$@"
+>>>>>>> efbebd6... Update configs for repo itself
 
 # Cleanup
 cleanup
