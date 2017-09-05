@@ -12,7 +12,6 @@ Create React apps with no build configuration.
 The main differences with Create React App are;
 
 Changes with create-react-app
-- No eslint-loader in dev, it is assumed your text editor has eslint configured already
 - No CSS Autoprefixer, we only support modern browsers
 - Uses cache-loader to cache Babel output
 - Doesn't use source maps by default
