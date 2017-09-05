@@ -47,7 +47,7 @@ function exists {
 }
 
 function create_react_app {
-  node "$temp_cli_path"/node_modules/create-react-cy-app/index.js $*
+  node "$temp_cli_path"/node_modules/create-react-app/index.js $*
 }
 
 # Exit the script with a helpful error message when any error is encountered
@@ -68,21 +68,56 @@ npm install
 if [ "$USE_YARN" = "yes" ]
 then
   # Install Yarn so that the test can use it to install packages.
-  npm install -g yarn
+  npm install -g yarn@0.17.10 # TODO: remove version when https://github.com/yarnpkg/yarn/issues/2142 is fixed.
   yarn cache clean
 fi
 
 # ******************************************************************************
-# First, pack and install create-react-cy-app.
+# First, pack and install create-react-app.
 # ******************************************************************************
 
 # Pack CLI
-cd $root_path/packages/create-react-cy-app
+cd $root_path/packages/create-react-app
 cli_path=$PWD/`npm pack`
 
 # Install the CLI in a temporary location
 cd $temp_cli_path
 npm install $cli_path
+
+# ******************************************************************************
+# Test --scripts-version with a version number
+# ******************************************************************************
+
+cd $temp_app_path
+create_react_app --scripts-version=0.4.0 test-app-version-number
+cd test-app-version-number
+
+# Check corresponding scripts version is installed.
+exists node_modules/react-scripts
+grep '"version": "0.4.0"' node_modules/react-scripts/package.json
+
+# ******************************************************************************
+# Test --scripts-version with a tarball url
+# ******************************************************************************
+
+cd $temp_app_path
+create_react_app --scripts-version=https://registry.npmjs.org/react-scripts/-/react-scripts-0.4.0.tgz test-app-tarball-url
+cd test-app-tarball-url
+
+# Check corresponding scripts version is installed.
+exists node_modules/react-scripts
+grep '"version": "0.4.0"' node_modules/react-scripts/package.json
+
+# ******************************************************************************
+# Test --scripts-version with a custom fork of react-scripts
+# ******************************************************************************
+
+cd $temp_app_path
+create_react_app --scripts-version=react-scripts-fork test-app-fork
+cd test-app-fork
+
+# Check corresponding scripts version is installed.
+exists node_modules/react-scripts-fork
 
 # ******************************************************************************
 # Test nested folder path as the project name

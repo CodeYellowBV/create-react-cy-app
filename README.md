@@ -1,41 +1,18 @@
-# Create React CY App [![Build Status](https://travis-ci.org/CodeYellowBV/create-react-cy-app.svg?branch=master)](https://travis-ci.org/facebookincubator/create-react-app)
+# Create React App [![Build Status](https://travis-ci.org/facebookincubator/create-react-app.svg?branch=master)](https://travis-ci.org/facebookincubator/create-react-app)
 
 Create React apps with no build configuration.
 
 * [Getting Started](#getting-started) – How to create a new app.
-* [User Guide](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
-
-- - -
-
-**This is a fork of [Create React App](https://github.com/facebookincubator/create-react-app), intended for use at our company Code Yellow B.V.**
-
-The main differences with Create React App are;
-
-Changes with create-react-app
-- No eslint-loader in dev, it is assumed your text editor has eslint configured already
-- No CSS Autoprefixer, we only support modern browsers
-- Uses cache-loader to cache Babel output
-- Doesn't use source maps by default
-- Support for `PUBLIC_URL` env variable in dev
-- Allows module resolving from src/ (e.g. `import 'components/foo'` works everywhere)
-- Uses Babili instead of UglifyJs for minifying
-- Basic Electron compatibility via env variable
-- Allows custom dotenv file location (in our build system `.env` cannot live in the repository root)
-- Includes env variables in frontend build with prefix `CY_FRONTEND_*` instead of `REACT_APP_*`
-- Babel preset:
-  - Less transpiling (we don't have to support many browsers), but still possible to enable a little bit more transpiling via an env variable
-  - Uses styled-components babel plugin
-  - Uses decorator babel plugin
-
+* [User Guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
 
 ## tl;dr
 
 ```sh
-yarn global add create-react-cy-app
+npm install -g create-react-app
 
-create-react-cy-app my-app
+create-react-app my-app
 cd my-app/
-yarn start
+npm start
 ```
 
 Then open [http://localhost:3000/](http://localhost:3000/) to see your app.<br>
@@ -50,10 +27,10 @@ When you’re ready to deploy to production, create a minified bundle with `npm 
 Install it once globally:
 
 ```sh
-yarn global add create-react-cy-app
+npm install -g create-react-app
 ```
 
-**You’ll need to have Node >= 4 on your machine. [Yarn](https://yarnpkg.com/lang/en/docs/install/) is optional, but recommended if you don't want to wait an eternity**.
+**You’ll need to have Node >= 4 on your machine**.
 
 **We strongly recommend to use Node >= 6 and npm >= 3 for faster installation speed and better disk usage.** You can use [nvm](https://github.com/creationix/nvm#usage) to easily switch Node versions between different projects.
 
@@ -64,7 +41,7 @@ yarn global add create-react-cy-app
 To create a new app, run:
 
 ```sh
-create-react-cy-app my-app
+create-react-app my-app
 cd my-app
 ```
 
@@ -77,7 +54,6 @@ my-app/
   node_modules/
   package.json
   .gitignore
-  .eslintrc
   public/
     favicon.ico
     index.html
@@ -108,7 +84,7 @@ You will see the build errors and lint warnings in the console.
 Runs the test watcher in an interactive mode.<br>
 By default, runs tests related to files changes since the last commit.
 
-[Read more about testing.](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#running-tests)
+[Read more about testing.](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#running-tests)
 
 ### `npm run build` or `yarn build`
 
@@ -120,43 +96,43 @@ Your app is ready to be deployed!
 
 ## User Guide
 
-The [User Guide](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md) includes information on different topics, such as:
+The [User Guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md) includes information on different topics, such as:
 
-- [Updating to New Releases](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#updating-to-new-releases)
-- [Folder Structure](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#folder-structure)
-- [Available Scripts](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#available-scripts)
-- [Supported Language Features and Polyfills](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#supported-language-features-and-polyfills)
-- [Syntax Highlighting in the Editor](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#syntax-highlighting-in-the-editor)
-- [Displaying Lint Output in the Editor](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#displaying-lint-output-in-the-editor)
-- [Changing the Page `<title>`](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#changing-the-page-title)
-- [Installing a Dependency](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#installing-a-dependency)
-- [Importing a Component](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#importing-a-component)
-- [Adding a Stylesheet](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#adding-a-stylesheet)
-- [Post-Processing CSS](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#post-processing-css)
-- [Adding a CSS Preprocessor (Sass, Less etc.)](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#adding-a-css-preprocessor-sass-less-etc)
-- [Adding Images and Fonts](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#adding-images-and-fonts)
-- [Using the `public` Folder](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#using-the-public-folder)
-- [Using Global Variables](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#using-global-variables)
-- [Adding Bootstrap](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#adding-bootstrap)
-- [Adding Flow](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#adding-flow)
-- [Adding Custom Environment Variables](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#adding-custom-environment-variables)
-- [Can I Use Decorators?](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#can-i-use-decorators)
-- [Integrating with an API Backend](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#integrating-with-an-api-backend)
-- [Proxying API Requests in Development](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#proxying-api-requests-in-development)
-- [Using HTTPS in Development](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#using-https-in-development)
-- [Generating Dynamic `<meta>` Tags on the Server](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#generating-dynamic-meta-tags-on-the-server)
-- [Running Tests](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#running-tests)
-- [Developing Components in Isolation](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#developing-components-in-isolation)
-- [Making a Progressive Web App](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#making-a-progressive-web-app)
-- [Deployment](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#deployment)
-- [Advanced Configuration](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#advanced-configuration)
-- [Troubleshooting](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#troubleshooting)
+- [Updating to New Releases](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#updating-to-new-releases)
+- [Folder Structure](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#folder-structure)
+- [Available Scripts](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#available-scripts)
+- [Supported Language Features and Polyfills](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#supported-language-features-and-polyfills)
+- [Syntax Highlighting in the Editor](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#syntax-highlighting-in-the-editor)
+- [Displaying Lint Output in the Editor](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#displaying-lint-output-in-the-editor)
+- [Changing the Page `<title>`](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#changing-the-page-title)
+- [Installing a Dependency](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#installing-a-dependency)
+- [Importing a Component](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#importing-a-component)
+- [Adding a Stylesheet](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-stylesheet)
+- [Post-Processing CSS](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#post-processing-css)
+- [Adding a CSS Preprocessor (Sass, Less etc.)](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-css-preprocessor-sass-less-etc)
+- [Adding Images and Fonts](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-images-and-fonts)
+- [Using the `public` Folder](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#using-the-public-folder)
+- [Using Global Variables](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#using-global-variables)
+- [Adding Bootstrap](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-bootstrap)
+- [Adding Flow](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-flow)
+- [Adding Custom Environment Variables](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-custom-environment-variables)
+- [Can I Use Decorators?](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#can-i-use-decorators)
+- [Integrating with an API Backend](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#integrating-with-an-api-backend)
+- [Proxying API Requests in Development](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#proxying-api-requests-in-development)
+- [Using HTTPS in Development](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#using-https-in-development)
+- [Generating Dynamic `<meta>` Tags on the Server](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#generating-dynamic-meta-tags-on-the-server)
+- [Running Tests](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#running-tests)
+- [Developing Components in Isolation](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#developing-components-in-isolation)
+- [Making a Progressive Web App](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#making-a-progressive-web-app)
+- [Deployment](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment)
+- [Advanced Configuration](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#advanced-configuration)
+- [Troubleshooting](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#troubleshooting)
 
 A copy of the user guide will be created as `README.md` in your project folder.
 
 ## How to Update to New Versions?
 
-Please refer to the [User Guide](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#updating-to-new-releases) for this and other information.
+Please refer to the [User Guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#updating-to-new-releases) for this and other information.
 
 ## Philosophy
 
@@ -168,7 +144,7 @@ Please refer to the [User Guide](https://github.com/CodeYellowBV/create-react-cy
 
 ## Why Use This?
 
-**If you’re getting started** with React, use `create-react-app` to automate the build of your app. There is no configuration file, and `react-cy-scripts` is the only extra build dependency in your `package.json`. Your environment will have everything you need to build a modern React app:
+**If you’re getting started** with React, use `create-react-app` to automate the build of your app. There is no configuration file, and `react-scripts` is the only extra build dependency in your `package.json`. Your environment will have everything you need to build a modern React app:
 
 * React, JSX, ES6, and Flow syntax support.
 * Language extras beyond ES6 like the object spread operator.
@@ -198,7 +174,7 @@ Some features are currently **not supported**:
 * Server rendering.
 * Some experimental syntax extensions (e.g. decorators).
 * CSS Modules.
-* Importing LESS or Sass directly ([but you still can use them](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md#adding-a-css-preprocessor-sass-less-etc)).
+* Importing LESS or Sass directly ([but you still can use them](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-a-css-preprocessor-sass-less-etc)).
 * Hot reloading of components.
 
 Some of them might get added in the future if they are stable, are useful to majority of React apps, don’t conflict with existing tools, and don’t introduce additional configuration.
@@ -235,7 +211,7 @@ If you don’t agree with the choices made in this project, you might want to ex
 Some of the more popular and actively maintained ones are:
 
 * [insin/nwb](https://github.com/insin/nwb)
-* [mozilla-neutrino/neutrino-dev](https://github.com/mozilla-neutrino/neutrino-dev)
+* [mozilla/neo](https://github.com/mozilla/neo)
 * [NYTimes/kyt](https://github.com/NYTimes/kyt)
 * [zeit/next.js](https://github.com/zeit/next.js)
 * [gatsbyjs/gatsby](https://github.com/gatsbyjs/gatsby)

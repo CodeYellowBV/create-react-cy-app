@@ -40,7 +40,7 @@ function handle_exit {
 }
 
 function create_react_app {
-  node "$temp_cli_path"/node_modules/create-react-cy-app/index.js $*
+  node "$temp_cli_path"/node_modules/create-react-app/index.js $*
 }
 
 # Check for the existence of one or more files.
@@ -68,20 +68,20 @@ npm install
 if [ "$USE_YARN" = "yes" ]
 then
   # Install Yarn so that the test can use it to install packages.
-  npm install -g yarn
+  npm install -g yarn@0.17.10 # TODO: remove version when https://github.com/yarnpkg/yarn/issues/2142 is fixed.
   yarn cache clean
 fi
 
 # ******************************************************************************
-# First, pack react-cy-scripts and create-react-cy-app so we can use them.
+# First, pack react-scripts and create-react-app so we can use them.
 # ******************************************************************************
 
 # Pack CLI
-cd $root_path/packages/create-react-cy-app
+cd $root_path/packages/create-react-app
 cli_path=$PWD/`npm pack`
 
-# Go to react-cy-scripts
-cd $root_path/packages/react-cy-scripts
+# Go to react-scripts
+cd $root_path/packages/react-scripts
 
 # Save package.json because we're going to touch it
 cp package.json package.json.orig
@@ -90,8 +90,8 @@ cp package.json package.json.orig
 # of those packages.
 node $root_path/tasks/replace-own-deps.js
 
-# Finally, pack react-cy-scripts
-scripts_path=$root_path/packages/react-cy-scripts/`npm pack`
+# Finally, pack react-scripts
+scripts_path=$root_path/packages/react-scripts/`npm pack`
 
 # Restore package.json
 rm package.json
@@ -107,10 +107,10 @@ npm install $cli_path
 
 # Install the app in a temporary location
 cd $temp_app_path
-create_react_app --scripts-version=$scripts_path --internal-testing-template=$root_path/packages/react-cy-scripts/fixtures/kitchensink test-kitchensink
+create_react_app --scripts-version=$scripts_path --internal-testing-template=$root_path/packages/react-scripts/fixtures/kitchensink test-kitchensink
 
 # ******************************************************************************
-# Now that we used create-react-cy-app to create an app depending on react-cy-scripts,
+# Now that we used create-react-app to create an app depending on react-scripts,
 # let's make sure all npm scripts are in the working state.
 # ******************************************************************************
 
@@ -118,7 +118,7 @@ create_react_app --scripts-version=$scripts_path --internal-testing-template=$ro
 cd test-kitchensink
 
 # Link to our preset
-npm link $root_path/packages/babel-preset-react-cy-app
+npm link $root_path/packages/babel-preset-react-app
 
 # Test the build
 REACT_APP_SHELL_ENV_MESSAGE=fromtheshell \
@@ -155,6 +155,60 @@ E2E_FILE=./build/index.html \
   CI=true \
   NODE_PATH=src \
   NODE_ENV=production \
+  PUBLIC_URL=http://www.example.org/spa/ \
+  node_modules/.bin/mocha --require babel-register --require babel-polyfill integration/*.test.js
+
+# ******************************************************************************
+# Finally, let's check that everything still works after ejecting.
+# ******************************************************************************
+
+# Unlink our preset
+npm unlink $root_path/packages/babel-preset-react-app
+
+# Eject...
+echo yes | npm run eject
+
+# ...but still link to the local packages
+npm link $root_path/packages/babel-preset-react-app
+npm link $root_path/packages/eslint-config-react-app
+npm link $root_path/packages/react-dev-utils
+npm link $root_path/packages/react-scripts
+
+# Test the build
+REACT_APP_SHELL_ENV_MESSAGE=fromtheshell \
+  NODE_PATH=src \
+  PUBLIC_URL=http://www.example.org/spa/ \
+  npm run build
+
+# Check for expected output
+exists build/*.html
+exists build/static/js/main.*.js
+
+# Unit tests
+REACT_APP_SHELL_ENV_MESSAGE=fromtheshell \
+  CI=true \
+  NODE_PATH=src \
+  NODE_ENV=test \
+  npm test -- --no-cache --testPathPattern="/src/"
+
+# Test "development" environment
+tmp_server_log=`mktemp`
+PORT=3002 \
+  REACT_APP_SHELL_ENV_MESSAGE=fromtheshell \
+  NODE_PATH=src \
+  nohup npm start &>$tmp_server_log &
+grep -q 'The app is running at:' <(tail -f $tmp_server_log)
+E2E_URL="http://localhost:3002" \
+  REACT_APP_SHELL_ENV_MESSAGE=fromtheshell \
+  CI=true NODE_PATH=src \
+  NODE_ENV=development \
+  node_modules/.bin/mocha --require babel-register --require babel-polyfill integration/*.test.js
+
+# Test "production" environment
+E2E_FILE=./build/index.html \
+  CI=true \
+  NODE_ENV=production \
+  NODE_PATH=src \
   PUBLIC_URL=http://www.example.org/spa/ \
   node_modules/.bin/mocha --require babel-register --require babel-polyfill integration/*.test.js
 

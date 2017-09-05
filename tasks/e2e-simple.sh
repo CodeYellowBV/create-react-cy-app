@@ -23,7 +23,7 @@ function cleanup {
   echo 'Cleaning up.'
   cd $root_path
   # Uncomment when snapshot testing is enabled by default:
-  # rm ./packages/react-cy-scripts/template/src/__snapshots__/App.test.js.snap
+  # rm ./packages/react-scripts/template/src/__snapshots__/App.test.js.snap
   rm -rf $temp_cli_path $temp_app_path
 }
 
@@ -42,7 +42,7 @@ function handle_exit {
 }
 
 function create_react_app {
-  node "$temp_cli_path"/node_modules/create-react-cy-app/index.js $*
+  node "$temp_cli_path"/node_modules/create-react-app/index.js $*
 }
 
 # Check for the existence of one or more files.
@@ -65,35 +65,20 @@ set -x
 cd ..
 root_path=$PWD
 
-
-# Prevent lerna bootstrap, we only want top-level dependencies
-cp package.json package.json.bak
-grep -v "lerna bootstrap" package.json > temp && mv temp package.json
 npm install
-mv package.json.bak package.json
-
-# We need to install create-react-app deps to test it
-cd "$root_path"/packages/create-react-app
-npm install
-cd "$root_path"
 
 # If the node version is < 4, the script should just give an error.
-if [[ `node --version | sed -e 's/^v//' -e 's/\..*//g'` -lt 4 ]]
+if [ `node --version | sed -e 's/^v//' -e 's/\..\+//g'` -lt 4 ]
 then
   cd $temp_app_path
-  err_output=`node "$root_path"/packages/create-react-cy-app/index.js test-node-version 2>&1 > /dev/null || echo ''`
+  err_output=`node "$root_path"/packages/create-react-app/index.js test-node-version 2>&1 > /dev/null || echo ''`
   [[ $err_output =~ You\ are\ running\ Node ]] && exit 0 || exit 1
 fi
-
-# Still use npm install instead of directly calling lerna bootstrap to test
-# postinstall script functionality (one npm install should result in a working
-# project)
-npm install
 
 if [ "$USE_YARN" = "yes" ]
 then
   # Install Yarn so that the test can use it to install packages.
-  npm install -g yarn
+  npm install -g yarn@0.17.10 # TODO: remove version when https://github.com/yarnpkg/yarn/issues/2142 is fixed.
   yarn cache clean
 fi
 
@@ -101,7 +86,7 @@ fi
 ./node_modules/.bin/eslint --ignore-path .gitignore ./
 
 # ******************************************************************************
-# First, test the create-react-cy-app development environment.
+# First, test the create-react-app development environment.
 # This does not affect our users but makes sure we can develop it.
 # ******************************************************************************
 
@@ -123,15 +108,15 @@ CI=true npm test
 npm start -- --smoke-test
 
 # ******************************************************************************
-# Next, pack react-cy-scripts and create-react-cy-app so we can verify they work.
+# Next, pack react-scripts and create-react-app so we can verify they work.
 # ******************************************************************************
 
 # Pack CLI
-cd $root_path/packages/create-react-cy-app
+cd $root_path/packages/create-react-app
 cli_path=$PWD/`npm pack`
 
-# Go to react-cy-scripts
-cd $root_path/packages/react-cy-scripts
+# Go to react-scripts
+cd $root_path/packages/react-scripts
 
 # Save package.json because we're going to touch it
 cp package.json package.json.orig
@@ -140,8 +125,8 @@ cp package.json package.json.orig
 # of those packages.
 node $root_path/tasks/replace-own-deps.js
 
-# Finally, pack react-cy-scripts
-scripts_path=$root_path/packages/react-cy-scripts/`npm pack`
+# Finally, pack react-scripts
+scripts_path=$root_path/packages/react-scripts/`npm pack`
 
 # Restore package.json
 rm package.json
@@ -160,7 +145,7 @@ cd $temp_app_path
 create_react_app --scripts-version=$scripts_path test-app
 
 # ******************************************************************************
-# Now that we used create-react-cy-app to create an app depending on react-cy-scripts,
+# Now that we used create-react-app to create an app depending on react-scripts,
 # let's make sure all npm scripts are in the working state.
 # ******************************************************************************
 
@@ -244,9 +229,10 @@ verify_env_url
 echo yes | npm run eject
 
 # ...but still link to the local packages
-npm link $root_path/packages/babel-preset-react-cy-app
-npm link $root_path/packages/react-cy-dev-utils
-npm link $root_path/packages/react-cy-scripts
+npm link $root_path/packages/babel-preset-react-app
+npm link $root_path/packages/eslint-config-react-app
+npm link $root_path/packages/react-dev-utils
+npm link $root_path/packages/react-scripts
 
 # Test the build
 npm run build
