@@ -8,7 +8,14 @@
  */
 'use strict';
 
+var path = require('path');
+
+// Often we don't need to support legacy browsers, but for some projects we do.
+var enableLegacyBrowsers = process.env.LEGACY_BROWSERS === 'true';
+
 const plugins = [
+  // class { @observable foo = 'bar' }
+  require.resolve('babel-plugin-transform-decorators-legacy'),
   // class { handleClick = () => { } }
   require.resolve('babel-plugin-transform-class-properties'),
   // The following two plugins use Object.assign directly, instead of Babel's
@@ -34,8 +41,11 @@ const plugins = [
       helpers: false,
       polyfill: false,
       regenerator: true,
+      // Resolve the Babel runtime relative to the config.
+      moduleName: path.dirname(require.resolve('babel-runtime/package')),
     },
   ],
+  require.resolve('babel-plugin-styled-components'),
 ];
 
 // This is similar to how `env` works in Babel:
@@ -91,28 +101,25 @@ if (env === 'test') {
     ]),
   };
 } else {
+  const presets = [
+    // JSX, Flow
+    require.resolve('babel-preset-react'),
+  ];
+  if (enableLegacyBrowsers) {
+    presets.unshift([
+      require.resolve('babel-preset-env'),
+      {
+        // We never have to support IE, but Safari we do
+        targets: { safari: 9 },
+        // Disable polyfill transforms
+        useBuiltIns: false,
+        // Do not transform modules to CJS
+        modules: false,
+      },
+    ]);
+  }
   module.exports = {
-    presets: [
-      // Latest stable ECMAScript features
-      [
-        require.resolve('babel-preset-env'),
-        {
-          targets: {
-            // React parses on ie 9, so we should too
-            ie: 9,
-            // We currently minify with uglify
-            // Remove after https://github.com/mishoo/UglifyJS2/issues/448
-            uglify: true,
-          },
-          // Disable polyfill transforms
-          useBuiltIns: false,
-          // Do not transform modules to CJS
-          modules: false,
-        },
-      ],
-      // JSX, Flow
-      require.resolve('babel-preset-react'),
-    ],
+    presets: presets,
     plugins: plugins.concat([
       // function* () { yield 42; yield 43; }
       [

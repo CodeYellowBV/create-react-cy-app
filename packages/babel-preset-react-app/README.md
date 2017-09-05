@@ -1,10 +1,10 @@
-# babel-preset-react-app
+# babel-preset-react-cy-app
 
-This package includes the Babel preset used by [Create React App](https://github.com/facebookincubator/create-react-app).<br>
+This package includes the Babel preset used by [Create React App](https://github.com/facebookincubator/create-react-app).  
 Please refer to its documentation:
 
-* [Getting Started](https://github.com/facebookincubator/create-react-app/blob/master/README.md#getting-started) – How to create a new app.
-* [User Guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
+* [Getting Started](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/README.md#getting-started) – How to create a new app.
+* [User Guide](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
 
 ## Usage in Create React App Projects
 
