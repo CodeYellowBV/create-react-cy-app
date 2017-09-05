@@ -17,7 +17,7 @@ Changes with create-react-app
 - Doesn't use source maps by default
 - Support for `PUBLIC_URL` env variable in dev
 - Allows module resolving from src/ (e.g. `import 'components/foo'` works everywhere)
-- Uses Babili instead of UglifyJs for minifying
+- Uses [Babel Minify](https://github.com/webpack-contrib/babel-minify-webpack-plugin) instead of UglifyJs for minifying
 - Basic Electron compatibility via env variable
 - Allows custom dotenv file location (in our build system `.env` cannot live in the repository root)
 - Includes env variables in frontend build with prefix `CY_FRONTEND_*` instead of `REACT_APP_*`
