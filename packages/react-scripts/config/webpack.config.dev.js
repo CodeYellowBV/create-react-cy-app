@@ -140,7 +140,6 @@ module.exports = {
                 extends: [require.resolve('eslint-config-codeyellow')],
               },
               ignore: false,
-              useEslintrc: false,
               // @remove-on-eject-end
             },
             loader: require.resolve('eslint-loader'),

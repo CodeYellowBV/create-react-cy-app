@@ -21,6 +21,7 @@ Changes with create-react-app
 - Basic Electron compatibility via env variable
 - Allows custom dotenv file location (in our build system `.env` cannot live in the repository root)
 - Includes env variables in frontend build with prefix `CY_FRONTEND_*` instead of `REACT_APP_*`
+- It is allowed to use a custom .eslintrc file (CRA will ignore .eslintrc files by default)
 - Babel preset:
   - Less transpiling (we don't have to support many browsers), but still possible to enable a little bit more transpiling via an env variable
   - Uses styled-components babel plugin
