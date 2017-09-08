@@ -39,16 +39,6 @@ if [ -n "$(git status --porcelain)" ]; then
   exit 1;
 fi
 
-<<<<<<< HEAD
 cd "$root_path"
-# Compile
-cd packages/react-error-overlay/
-npm run build:prod
-cd ../..
-||||||| parent of efbebd6... Update configs for repo itself
-cd $root_path
-=======
-cd "$root_path"
->>>>>>> efbebd6... Update configs for repo itself
 # Go!
 ./node_modules/.bin/lerna publish --independent "$@"
