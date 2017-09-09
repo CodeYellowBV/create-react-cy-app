@@ -3,7 +3,7 @@
 Create React apps with no build configuration.
 
 * [Getting Started](#getting-started) – How to create a new app.
-* [User Guide](https://github.com/CodeYellowBV/create-react-cy-app/blob/master/packages/react-cy-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
+* [User Guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md) – How to develop apps bootstrapped with Create React App.
 
 - - -
 
@@ -11,7 +11,6 @@ Create React apps with no build configuration.
 
 The main differences with Create React App are;
 
-Changes with create-react-app
 - No CSS Autoprefixer, we only support modern browsers
 - Uses cache-loader to cache Babel output
 - Doesn't use source maps by default
@@ -27,3 +26,14 @@ Changes with create-react-app
   - Uses styled-components babel plugin
   - Uses decorator babel plugin
 
+## Getting Started
+
+```sh
+npm install -g create-react-app
+
+create-react-app --scripts-version=react-cy-scripts my-app
+cd my-app/
+npm start
+```
+
+For further instructions, read the [Getting Started guide](https://github.com/facebookincubator/create-react-app#getting-started) from the original Create React App.
