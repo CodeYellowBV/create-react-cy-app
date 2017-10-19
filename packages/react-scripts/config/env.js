@@ -68,7 +68,7 @@ process.env.NODE_PATH = (process.env.NODE_PATH || './src')
 // Add version information so the frontend can choose to show somewhere in the app
 let version = 'dev';
 let commit = 'dev';
-if (NODE_ENV === 'development') {
+if (NODE_ENV === 'production') {
   version = execSync('git tag -l | tail -n1')
     .toString()
     .replace('\n', '');
