@@ -29,9 +29,9 @@ The main differences with Create React App are;
 ## Getting Started
 
 ```sh
-npm install -g create-react-app
+npm install -g create-react-cy-app
 
-create-react-app --scripts-version=react-cy-scripts my-app
+create-react-cy-app --scripts-version=react-cy-scripts my-app
 cd my-app/
 npm start
 ```
