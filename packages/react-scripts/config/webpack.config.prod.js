@@ -37,6 +37,7 @@ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP === 'true';
 const publicUrl = publicPath.slice(0, -1);
 // Get environment variables to inject into our app.
 const env = getClientEnvironment(publicUrl);
+const enableLegacyBrowsers = process.env.LEGACY_BROWSERS === 'true';
 
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
@@ -67,7 +68,10 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  entry: [
+    enableLegacyBrowsers && require.resolve('./polyfills'),
+    paths.appIndexJs,
+  ].filter(Boolean),
   output: {
     // The build folder.
     path: paths.appBuild,
